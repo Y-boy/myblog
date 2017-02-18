@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <title><%= title %></title>
+	    <link rel='stylesheet' href='/stylesheets/style.css' />
+	</head>
+	<body>
+		<form class="" role="form" method="post">
+			<fieldset>
+				<% if(locals.islogin) { %>
+					用户：<h3> <%= user %></h3>已经登陆。<br>
+					<a class="btn" href="/logout">登出</a>
+				<% } else{ %>
+					
+					<label class="" for="userid">用户名</label>
+					<input type="text" class="" id="userid" name="userid" placeholder="用户名" required>
+					
+					<label class="" for="password">密码</label>
+					<input type="password" class="" id="password" name="password" placeholder="密码" required>
+					
+					<button type="submit" class="">登录</button>
+					<a href="/register">注册</a>
+				<% } %>
+			</fieldset>
+		</form>
+	</body>
+</html>

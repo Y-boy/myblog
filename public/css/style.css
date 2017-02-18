@@ -1,0 +1,12 @@
+body {
+	font: 14px "Microsoft YaHei";
+	background-image: url('../images/default/bg-body.png');
+}
+
+a {
+	color: #00B7FF;
+}
+
+input {
+	font: 14px "Microsoft YaHei";
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<%- include quote.ejs %>
+	<!-- 引用.ejs -->
+	
+	<title><%= title %></title>
+	<!-- <link rel='stylesheet' href='/stylesheets/style.css' /> -->
+</head>
+<body>
+	<h1><span class="glyphicon glyphicon-ok"></span> <%= title %></h1>
+	<p>Welcome <%= user %></p>
+	<form method="post" enctype="multipart/form-data" action="/coverUpload">
+		<input type="file" name="cover">
+		<input type="submit">
+	</form>
+	<!-- <% pics.forEach(function(i) {%>
+	        <img src=<%= path+"/"+ i + ".jpg" %>>
+	    <% }) %> -->
+	<a href="/logout">登出</a>
+</body>
+</html>
