@@ -1,22 +1,222 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<%- include quote.ejs %>
+	<title><%= user.userid +"\'s "+ title %></title>
+	<%- include unit/quote.ejs %>
 	<!-- 引用.ejs -->
-	
-	<title><%= title %></title>
-	<!-- <link rel='stylesheet' href='/stylesheets/style.css' /> -->
 </head>
 <body>
-	<h1><span class="glyphicon glyphicon-ok"></span> <%= title %></h1>
-	<p>Welcome <%= user %></p>
-	<form method="post" enctype="multipart/form-data" action="/coverUpload">
-		<input type="file" name="cover">
-		<input type="submit">
-	</form>
-	<!-- <% pics.forEach(function(i) {%>
-	        <img src=<%= path+"/"+ i + ".jpg" %>>
-	    <% }) %> -->
-	<a href="/logout">登出</a>
+	<%- include unit/header.ejs %>
+	<!-- 头部：封面 -->
+
+	<div id="navigater">
+		<div class="container">
+			<div class="row">
+				<nav class="navbar navbar-default" role="navigation">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+								<span class="sr-only">切换导航</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand" href="/">INDEX</a>
+						</div>
+						<div class="collapse navbar-collapse navbar-right" id="example-navbar-collapse">
+							<ul class="nav navbar-nav">
+								<li class="active"><a href="#">OPTION A</a></li>
+								<li><a href="#modify-cover" data-toggle="modal">修改封面</a></li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+										个人功能 <b class="caret"></b>
+									</a>
+									<ul class="dropdown-menu">
+										<li><a href="#">SUB	A</a></li>
+										<li class="divider"></li>
+										<li><a href="/logout" data-toggle="modal">退出博客</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<!-- 导航栏 -->
+
+	<div id="main">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9 col-lg-offset-1 col-xs-12">
+
+					<div class="article-box col-xs-12">
+						<div class="col-md-6 col-xs-12">
+							<div class="article-figure" style="background-image: url('images/default/figure.jpg');"></div>
+						</div>
+						<div class="col-md-6 col-xs-12 article-title">
+							<h3 class="text-center">TITLE</h3>
+						</div>
+						<div class="col-md-6 visible-lg visible-md article-abstract">
+							<p>Brief content</p>
+						</div>
+					</div>
+					<div class="filler"></div>
+
+					<div class="article-box col-xs-12">
+						<div class="col-md-6 col-xs-12">
+							<div class="article-figure" style="background-image: url('images/default/figure.jpg');"></div>
+						</div>
+						<div class="col-md-6 col-xs-12 article-title">
+							<h3 class="text-center">TITLE</h3>
+						</div>
+						<div class="col-md-6 visible-lg visible-md article-abstract">
+							<p>Brief content</p>
+						</div>
+					</div>
+					<div class="filler"></div>
+					<!-- 将来的循环 -->
+
+				</div>
+				<div class="col-lg-3 visible-lg"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 主体：正文 -->
+
+	<%- include unit/footer.ejs %>
+	<!-- 底部：版本信息 -->
+	
+	<div class="modal fade" id="modify-cover" role="dialog" aria-labelledby="userDetail" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="userDetail">修改个人信息</h4>
+				</div>
+				<div class="modal-body">
+					<% if (user.coverUrl){ %>
+					<div id="headerInModal" class="row" style="background-image: url(<%= user.coverUrl %>); background-size: cover;">
+					<% } else{ %>
+					<div id="headerInModal" class="row" style="background-image: url('../images/default/cover.jpg');">
+					<% } %>
+						<div id="user-portrail" class="col-xs-12">
+							<% if (user.portraitUrl){ %>
+							<div class="circle-200" id="portrail-set" style="background-image: url(<%= user.portraitUrl %>);"></div>
+							<% } else{ %>
+							<div class="circle-200" id="portrail-set"></div>
+							<% } %>
+						</div>
+						<div id="user-info" class="col-xs-12">
+
+							<p id="user-motto" class="text-center"><%= user.motto %></p>
+							<p id="user-email" class="text-center"><%= user.email %></p>
+						</div>
+					</div>
+					<div class="filler" style="height: 10px;"></div>
+					<form id="postPic" class="col-xs-6">
+						<label for="upload-cover" class="btn btn-success btn-xs" style="width: 100%;">更改封面</label>
+						<input id="upload-cover" type="file" name="cover" style="display: none;" />
+					</form>
+					<form id="postPic-portrait" class="col-xs-6">
+						<label for="upload-portrait" class="btn btn-success btn-xs" style="width: 100%;">更改头像</label>
+						<input id="upload-portrait" type="file" name="portrait" style="display: none;" />
+						<!-- <button type="button" class="btn btn-xs btn-success" id="upload-portrait">上传头像</button> -->
+					</form>
+					<div class="filler" style="height: 10px;"></div>
+					<form id="userDetailForm">
+						<style type="text/css">
+						#userDetailForm > .input-group{
+							margin-bottom: 3px; 
+						}
+						</style>
+						<div class="input-group">
+							<span class="input-group-addon">昵称</span>
+							<input type="text" class="form-control input-sm" id="nickName" name="nickName" placeholder="昵称" value="<%= user.nickName %>"/>
+						</div>
+						<div class="input-group">
+							<span class="input-group-addon">邮箱</span>
+							<input type="text" class="form-control input-sm" id="email" name="email" placeholder="邮箱" value="<%= user.email %>" />
+						</div>
+						<div class="input-group">
+							<span class="input-group-addon">签名</span>
+							<input type="text" class="form-control input-sm" id="motto" name="motto" placeholder="签名" value="<%= user.motto %>" />
+						</div>
+
+						<input type="text" id="portraitUrl" name="portraitUrl" value="<%= user.portraitUrl %>" style="display: none;"/>
+						<input type="text" id="coverUrl" name="coverUrl" value="<%= user.coverUrl %>" style="display: none;"/>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary btn-sm" id="submitUserDetail">提交更改</button>
+					<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div>
+	<!-- 功能单元：模态框 -->
+	<script type="text/javascript">
+	$(document).ready(function(){
+		// $("#portraitUrl, #coverUrl").css("display", "none");
+	});
+	$("html").dblclick(function(){
+		// alert($("#nickName").val());
+	});
+	$("#submitUserDetail").click(function(){
+		var u = $('title').text().split('\'')[0];
+		var postData = "userid="+u+"\&"+$("#userDetailForm").serialize();
+		$.ajax({
+			url: '/submitUserDetail',
+			type: 'POST',
+			data: postData,
+			success: function(data){
+				alert("submit finished");
+				window.href = "/home";
+			},
+			error: function(data){
+				alert(data.responseText);
+			}
+		});
+	});
+	$("#upload-cover").change(function(){
+		$.ajax({
+			url: '/coverUpload',
+			type: 'POST',
+			cache: false,
+			data: new FormData($('#postPic')[0]),
+			processData: false,
+			contentType: false,
+			success: function(data) {
+				var coverUrl = data.path+ "/" +data.file.filename;
+				// $('#show-bar').html("<img src=\""+data.path+"/"+data.file.filename+"\"/>");
+				$('#headerInModal').css("background-image", "url(\"" +coverUrl+ "\")");
+				$('#coverUrl').val(coverUrl);
+			},
+			error: function(data) {
+				$('#show-bar').html(data.status + " : " + data.statusText + " : " + data.responseText);
+			} 
+		});
+	});
+	$("#upload-portrait").change(function(){
+		$.ajax({
+			url: '/portraitUpload',
+			type: 'POST',
+			cache: false,
+			data: new FormData($('#postPic-portrait')[0]),
+			processData: false,
+			contentType: false,
+			success: function(data) {
+				var portraitUrl = data.path+ "/" +data.file.filename;
+				// $('#show-bar').html("<img src=\""+data.path+"/"+data.file.filename+"\"/>");
+				$('#portrail-set').css("background-image", "url(\"" +portraitUrl+ "\")");
+				$('#portraitUrl').val(portraitUrl);
+			},
+			error: function(data) {
+				$('#show-bar').html(data.status + " : " + data.statusText + " : " + data.responseText);
+			} 
+		});
+	});
+	</script>
 </body>
 </html>

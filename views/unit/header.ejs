@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<% if (user.coverUrl){ %>
+<div id="header" style="background-image: url(<%= user.coverUrl %>);">
+<% } else{ %>
+<div id="header">
+<% } %>
+	<div class="container">
+		<div class="row">
+			<div class="filler hidden-md hidden-sm hidden-xs" style="height: 70px;"></div>
+			<div id="user-portrail" class="col-lg-4 col-xs-12">
+				<% if (user.portraitUrl){ %>
+				<div class="circle-200" style="background-image: url(<%= user.portraitUrl %>);"></div>
+				<% } else{ %>
+				<div class="circle-200"></div>
+				<% } %>
+			</div>
+			<div id="user-info" class="col-lg-7 hidden-md hidden-sm hidden-xs">
+				<div class="filler" style="height: 80px;"></div>
+				<% if(user.motto){ %>
+				<h3 id="user-motto" class="text-right"><%= user.motto %></h3>
+				<% } else{ %>
+				<h3 class="text-right">Hello, World</h3>
+				<% } %> 
+				<h3 id="user-email" class="text-right"><%= user.email %></h3>
+			</div>
+			<div id="user-info" class="col-xs-12 visible-md visible-sm visible-xs">
+				<% if(user.motto){ %>
+				<p id="user-motto" class="text-center"><%= user.motto %></p>
+				<% } else{ %>
+				<p class="text-right">Hello, World</p>
+				<% } %> 
+				<p id="user-email" class="text-center"><%= user.email %></p>
+			</div>
+			<div class="filler hidden-md hidden-sm hidden-xs" style="height: 70px;"></div>
+		</div>
+	</div>
+</div>

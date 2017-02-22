@@ -1,5 +1,5 @@
 body {
-	font: 14px "Microsoft YaHei";
+	font-family: "Microsoft YaHei" !important;
 	background-image: url('../images/default/bg-body.png');
 }
 
@@ -9,4 +9,82 @@ a {
 
 input {
 	font: 14px "Microsoft YaHei";
+}
+
+div{
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.circle-100{
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+.circle-200{
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+}
+.circle-300{
+	width: 300px;
+	height: 300px;
+	border-radius: 50%;
+}
+.circle-500{
+	width: 500px;
+	height: 500px;
+	border-radius: 50%;
+}
+
+/* 填充物 */
+.filler{
+	width: 100%;
+	clear: both;
+}
+
+/* unit/header.ejs */
+#header{
+	background-image: url('../images/default/cover.jpg');
+	background-size: cover;
+}
+#user-portrail > div{
+	margin: 40px auto;
+	background-image: url('../images/default/portrail.png');
+	background-size: cover;
+}
+#user-info{
+	color: #fff;
+	text-shadow: 0px 0px 4px #000;
+}
+
+/* home.ejs */
+#navigater{
+	background-color: #fff;
+}
+#navigater nav{
+	margin-bottom: 0px;
+	margin: 5px 0px;
+	background-color: #fff;
+	border: 0px;
+}
+.article-box{
+    margin: 15px 0px 5px;
+    padding: 20px 0px;
+    background-color: white;
+    box-shadow: 0px 0px 15px #aaa inset;
+    border-radius: 5px;
+}
+.article-figure{
+	height: 300px;
+	background-color: #fff;
+	background-size: contain !important;
+}
+
+/* unit/footer.ejs */
+#footer{
+	margin-top: 10px;
+}
+#footer p{
+	font-size: 8px;
 }

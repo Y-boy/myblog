@@ -2,25 +2,48 @@
 <html>
 	<head>
 	    <title><%= title %></title>
-	    <link rel='stylesheet' href='/stylesheets/style.css' />
+		<%- include unit/quote.ejs %>
 	</head>
 	<body>
-		<h1><%= title %></h1>
 		<form class="" role="form" method="post">
-			<fieldset>
-				<% if(locals.islogin) { %>
-					用户：<h3> <%= user %></h3>已经登陆。<br>
-					<a class="btn" href="/logout">登出</a>
-				<% } else{ %>
-					<label class="" for="userid">用户名</label>
-					<input type="text" class="" id="userid" name="userid" placeholder="用户名" required>
-					
-					<label class="" for="password">密码</label>
-					<input type="password" class="" id="password" name="password" placeholder="密码" required>
-					
-					<button type="submit" class="">注册</button>
-				<% } %>
-			</fieldset>
+			<!-- <% if(locals.islogin) { %>
+				用户：<h3> <%= user %></h3>已经登陆。<br>
+				<a class="btn" href="/logout">登出</a>
+			<% } else{ %>
+			<% } %> -->
+			<div class="container">
+				<div class="row">
+					<div class="filler visible-sm visible-md visible-lg" style="height: 300px;" "></div>
+					<div class="filler visible-xs" style="height: 150px;" "></div>
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+						<div class="panel panel-success">
+						    <div class="panel-heading">
+						        <h3 class="panel-title text-center">SIGN UP</h3>
+						    </div>
+						    <div class="panel-body">
+								<div class="input-group">
+						            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+						            <input type="text" class="form-control" placeholder="userid" id="userid" name="userid" required>
+						        </div>
+								<div class="filler" style="height: 10px"></div>
+								<div class="input-group">
+						            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+						            <input type="password" class="form-control" placeholder="password" id="password" name="password" required>
+						        </div>
+								<div class="filler" style="height: 10px"></div>
+
+								<button type="submit" class="btn btn-success btn-sm" id="reg">SIGN UP</button>
+								<button type="button" class="btn btn-success btn-sm" id="go-back"><span class="glyphicon glyphicon-share-alt"></span></button>
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</form>
 	</body>
+	<script type="text/javascript">
+	$("#go-back").click(function(){
+		window.history.go(-1);
+	});
+	</script>
 </html>

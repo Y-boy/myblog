@@ -6,8 +6,15 @@ var user = {
 	// queryById: 'select * from user where id=?',
 	// queryAll: 'select * from user',
 
+	// regUser: 'insert into user value(?,?)',
+	// regUser: 'insert into user value(?,?)',
+	// login: 'select * from user where userid=?',
 	regUser: 'insert into user value(?,?)',
-	login: 'select * from user where userid=?'
+	login: 'select * from user where userid=?',
+
+	addUser: 'insert into userdetail(userid) value(?)',
+	updateUserDetail: 'update userdetail set nickName=?, email=?, motto=?, portraitUrl=?, coverUrl=? where userid=?',
+	queryByUserid: 'select * from userdetail where userid=?'
 };
 
 module.exports = user;
