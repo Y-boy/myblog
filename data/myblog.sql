@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-02-22 15:23:06
+Date: 2017-02-24 15:50:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -49,6 +49,6 @@ CREATE TABLE `userdetail` (
 -- ----------------------------
 -- Records of userdetail
 -- ----------------------------
-INSERT INTO `userdetail` VALUES ('admin', 'Y-boy', '1027531092@qq.com', '皮皮虾，我们走', 'images/uploads/portrait/admin-1487746895868.jpg', 'images/uploads/cover/undefined-1487691994866.jpg');
+INSERT INTO `userdetail` VALUES ('admin', 'Y-boy', '1027531092@qq.com', '皮皮虾，我们走', '/images/uploads/portrait/admin-1487920601949.jpg', '/images/uploads/cover/admin-1487920451441.jpg');
 INSERT INTO `userdetail` VALUES ('admin-1', null, null, null, null, null);
 INSERT INTO `userdetail` VALUES ('admin-2', null, null, null, null, null);

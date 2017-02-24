@@ -59,7 +59,7 @@ module.exports = {
 	// 读取用户数据
 	queryByUserid: function (req, res, next, callback) {
 		pool.getConnection(function(err, connection) {
-			var param = req.body;
+			var param = req.params;
 			connection.query($sql.queryByUserid, param.userid, function(err, results) {
 				callback(err, results);
 				connection.release();
@@ -72,7 +72,7 @@ module.exports = {
 		console.log(req.body);
 		pool.getConnection(function(err, connection) {
 			var param = [req.body.nickName, req.body.email, req.body.motto, req.body.portraitUrl, req.body.coverUrl, req.body.userid];
-			console.log(param);
+			// console.log(param);
 			connection.query($sql.updateUserDetail, param, function(err, results) {
 				// console.log(results);
 				callback(err, results);

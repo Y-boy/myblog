@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= title %></title>
+	<%- include unit/quote.ejs %>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+var userid = "<%= locals.islogin %>";
+$('html').dblclick(function(){
+	alert(userid);
+})
+</script>
+</html>
