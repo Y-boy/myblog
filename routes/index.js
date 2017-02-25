@@ -6,6 +6,7 @@ var multer = require ('multer');
 // 引入multer模块
 var router = express.Router();
 var userDao = require('../dao/userDao');
+var artDao = require('../dao/artDao');
 
 /* GET home page. */
 // router.get('/', function(req, res, next) {
@@ -16,7 +17,13 @@ router.get('/', function(req, res) {
 	if(req.cookies.islogin){
 		res.locals.islogin = req.cookies.islogin;
 	}
-	res.render('index', { title: 'welcome', user: res.locals.islogin});
+	artDao.queryAllArt(req, res, function(err, results){
+		res.render('index', {
+			title: 'welcome',
+			user: res.locals.islogin,
+			artArr: results
+		});
+	});
 });
 
 router.route('/login')
@@ -73,10 +80,13 @@ router.route('/home/:userid')
 			req.session.islogin = req.cookies.islogin;
 		}
 		userDao.queryByUserid(req, res, next, function(err, results){
-			res.render('home', {
-				title: 'Home',
-				user: results[0]
-			});
+			artDao.queryArtByUserid(req, res,function(err, result){
+				res.render('home', {
+					title: 'Home',
+					user: results[0],
+					artArr: result
+				});
+			})
 		});
 	})
 	// .post(function(req, res, next){
@@ -167,7 +177,7 @@ router.post('/portraitUpload', upload.single('portrait'), function (req, res, ne
 });
 // --------------------图片上传-------------------
 
-// 发布文章
+// 路由到发文章页面
 router.route('/publish/:userid')
 	.get(function(req, res, next) {
 		if(req.session.islogin){
@@ -179,8 +189,57 @@ router.route('/publish/:userid')
 			req.session.islogin = req.cookies.islogin;
 		}
 		res.render('publish', {
-			title: 'Writing Article'
+			title: 'Writing Article',
+			user: {
+				userid: req.params.userid
+			}
 		});
 	});
 
+router.post('/publishArticle', function(req, res, next){
+// 发布文章
+	console.log(req.body);
+	artDao.addArt(req, res, function(err, results){
+		res.send({
+			data: req.body
+		});
+	});
+});
+
+var path_artCover = '/images/uploads/artCover';
+// 用户封面图片
+var storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, path.join(__dirname, "../public"+path_artCover));
+	},
+	filename: function (req, file, cb) {
+		var fileType = file.originalname.split('.')[1];
+		// 获取文件后缀
+		cb(null, req.cookies.islogin +'-aritcle-' + Date.now() +"."+ fileType);
+		// 为保存的文件设置文件名
+	}
+});
+var upload = multer({ storage: storage });
+router.post('/artCoverUpload', upload.single('artcover'), function (req, res, next) {
+	if(req.session.islogin){
+		res.locals.islogin = req.session.islogin;
+	}
+	if(req.cookies.islogin){
+		req.session.islogin = req.cookies.islogin;
+	}
+	res.send({
+		path: path_artCover,
+		file: req.file
+	});
+});
+// --------------------图片上传-------------------
+
+router.get('/article/:articleid', function(req, res, next){
+	artDao.queryArtByArticleid(req, res, function(err, result){
+		res.render('article',{
+			title: 'Article',
+			article: result[0]
+		})
+	})
+});
 module.exports = router;

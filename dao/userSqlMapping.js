@@ -14,7 +14,12 @@ var user = {
 
 	addUser: 'insert into userdetail(userid) value(?)',
 	updateUserDetail: 'update userdetail set nickName=?, email=?, motto=?, portraitUrl=?, coverUrl=? where userid=?',
-	queryByUserid: 'select * from userdetail where userid=?'
+	queryByUserid: 'select * from userdetail where userid=?',
+
+	queryAllArt: 'select * from userarticle order by createDate desc',
+	addArt: 'insert into userarticle(userid, articleid, createDate, content, articleCoverUrl, abstract, title) value(?,?,?,?,?,?,?)',
+	queryArtByUserid: 'select * from userarticle where userid=? order by createDate desc',
+	queryArtByArticleid: 'select * from userarticle where articleid=? order by createDate desc'
 };
 
 module.exports = user;

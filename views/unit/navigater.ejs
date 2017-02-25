@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<div id="navigater">
+	<div class="container">
+		<div class="row">
+			<nav class="navbar navbar-default" role="navigation">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+							<span class="sr-only">切换导航</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="/">INDEX</a>
+					</div>
+					<div class="collapse navbar-collapse navbar-right" id="example-navbar-collapse">
+						<ul class="nav navbar-nav">
+							<li><a href=<%= "/publish/"+user.userid %>>发布文章</a></li>
+							<li><a href="#modify-cover" data-toggle="modal">修改个人信息</a></li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									个人功能 <b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a href="#">SUB	A</a></li>
+									<li class="divider"></li>
+									<li><a href="/logout" data-toggle="modal">退出博客</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</div>
+</div>

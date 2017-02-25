@@ -5,26 +5,112 @@
 	<%- include unit/quote.ejs %>
 </head>
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="filler visible-sm visible-md visible-lg" style="height: 300px;" "></div>
-				<div class="filler visible-xs" style="height: 150px;" "></div>
-				<h1 class="text-center"><%= title %></h1>
-				<style type="text/css">
-					p > a{font-weight: 900;}
-					a:link, a:hover, a:visited{text-decoration: none;}
-				</style>
-				<p class="text-center"><a href="/login">LOG IN</a></p>
-				<p class="text-center"><a href="/register">SIGN UP</a></p>
+	<div id="index-board">
+		<div class="filler visible-sm visible-md visible-lg" style="height: 200px;"></div>
+		<div class="filler visible-xs" style="height: 120px;"></div>
+		<div style="width: 300px; margin: 0px auto;">
+			<h1 class="text-center"><%= title %></h1>
+			<style type="text/css">
+				p > a{ font-weight: 900;}
+				a:link, a:hover, a:visited{ text-decoration: none;}
+			</style>
+			<p class="text-center"><a href="/login">LOG IN</a></p>
+			<p class="text-center"><a href="/register">SIGN UP</a></p>
+		</div>
+	</div>
+	<div id="floatNav">
+		<div class="container">
+			<div class="row">
+				<nav class="navbar navbar-default" role="navigation">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+								<span class="sr-only">切换导航</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="collapse navbar-collapse navbar-right" id="example-navbar-collapse">
+							<ul class="nav navbar-nav">
+								<li><a href="/login">LOG IN</a></li>
+								<li><a href="/register">SIGN UP</a></li>
+							</ul>
+						</div>
+					</div>
+				</nav>
 			</div>
 		</div>
 	</div>
-	
-	<!-- <form method="post" enctype="multipart/form-data" action="/coverUpload">
-		<input type="file" name="cover">
-		<input type="submit">
-	</form> -->
+	<div class="container">
+		<div class="row">
+			
+			<div class="filler" id="afterNav"></div>
+			<div class="col-xs-12">
+				<% for(var i = 0; i < artArr.length; i++){ %>
+				<div class="panel-group" id="p-<%= i %>">
+				    <div class="panel panel-default">
+				        <div id="p-<%= i %>-1" class="panel-collapse collapse in">
+				            <div class="panel-body">
+				                <div class="col-md-6 col-xs-12">
+									<a data-toggle="collapse" data-parent="#p-<%= i %>" href="#p-<%= i %>-2">
+										<div class="article-figure" style="background-image: url(<%= artArr[i].articleCoverUrl -%>);"></div>
+									</a>
+								</div>
+								<div class="col-md-6 col-xs-12 article-title">
+									<h3 class="text-center"><%= artArr[i].title -%></h3>
+								</div>
+								<div class="col-md-6 visible-lg visible-md article-abstract">
+									<p><%= artArr[i].abstract -%></p>
+								</div>
+				            </div>
+				        </div>
+				        <div id="p-<%= i %>-2" class="panel-collapse collapse">
+					        <div class="panel-body">
+					        	<div class="col-xs-12">
+						            <%- artArr[i].content -%>
+				            		<h1><a data-toggle="collapse" data-parent="#p-<%= i %>" href="#p-<%= i %>-1">收起</a></h1>
+						        </div>
+					        </div>
+				        </div>
+				    </div>
+				</div>
+				<% } %>
+			</div>
+
+		</div>
+	</div>
 	<%- include unit/footer.ejs %>
 </body>
+<style type="text/css">
+#index-board{
+	position: relative;
+	z-index: 100;
+	width: 100%;
+	background-image: url('/images/default/index-bg.jpg');
+	background-size: cover;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#index-board').css("height", document.documentElement.clientHeight);
+});
+$(window).scroll(function(){
+	// $('#index-board').fadeOut(100);
+	if($(window).scrollTop() > document.documentElement.clientHeight){
+		$('#floatNav').css({
+			"position": "fixed",
+			"z-index": "100",
+			"top": "0px",
+			"width": "100%"
+		});
+		$('#afterNav').css("height", "72px");
+	} else{
+		$('#floatNav').css({
+			"position": "relative"
+		});
+		$('#afterNav').css("height", "0px");
+	}
+});
+</script>
 </html>

@@ -26,14 +26,14 @@
 						<div class="collapse navbar-collapse navbar-right" id="example-navbar-collapse">
 							<ul class="nav navbar-nav">
 								<li><a href=<%= "/publish/"+user.userid %>>发布文章</a></li>
-								<li><a href="#modify-cover" data-toggle="modal">修改封面</a></li>
+								<li><a href="#modify-cover" data-toggle="modal">修改个人信息</a></li>
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 										个人功能 <b class="caret"></b>
 									</a>
 									<ul class="dropdown-menu">
-										<li><a href="#">SUB	A</a></li>
-										<li class="divider"></li>
+										<!-- <li><a href="#">SUB	A</a></li>
+										<li class="divider"></li> -->
 										<li><a href="/logout" data-toggle="modal">退出博客</a></li>
 									</ul>
 								</li>
@@ -49,37 +49,25 @@
 	<div id="main">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-9 col-lg-offset-1 col-xs-12">
+				<div class="col-lg-11 col-xs-12">
 
+					<% for(var i = 0; i < artArr.length; i++){ %>
 					<div class="article-box col-xs-12">
 						<div class="col-md-6 col-xs-12">
-							<div class="article-figure" style="background-image: url('/images/default/figure.jpg');"></div>
+							<div class="article-figure" style="background-image: url(<%= artArr[i].articleCoverUrl -%>);"></div>
 						</div>
 						<div class="col-md-6 col-xs-12 article-title">
-							<h3 class="text-center">TITLE</h3>
+							<a href="/article/<%= artArr[i].articleid %>"><h3 class="text-center"><%= artArr[i].title -%></h3></a>
 						</div>
 						<div class="col-md-6 visible-lg visible-md article-abstract">
-							<p>Brief content</p>
+							<p><%= artArr[i].abstract -%></p>
 						</div>
 					</div>
 					<div class="filler"></div>
-
-					<div class="article-box col-xs-12">
-						<div class="col-md-6 col-xs-12">
-							<div class="article-figure" style="background-image: url('/images/default/figure.jpg');"></div>
-						</div>
-						<div class="col-md-6 col-xs-12 article-title">
-							<h3 class="text-center">TITLE</h3>
-						</div>
-						<div class="col-md-6 visible-lg visible-md article-abstract">
-							<p>Brief content</p>
-						</div>
-					</div>
-					<div class="filler"></div>
-					<!-- 将来的循环 -->
+					<% } %>
 
 				</div>
-				<div class="col-lg-3 visible-lg"></div>
+				<div class="col-lg-1 visible-lg"></div>
 			</div>
 		</div>
 	</div>
@@ -116,13 +104,12 @@
 					</div>
 					<div class="filler" style="height: 10px;"></div>
 					<form id="postPic" class="col-xs-6">
-						<label for="upload-cover" class="btn btn-success btn-xs" style="width: 100%;">更改封面</label>
-						<input id="upload-cover" type="file" name="cover" style="display: none;" />
+						<label for="uploadCover" class="btn btn-success btn-xs" style="width: 100%;">更改封面</label>
+						<input id="uploadCover" type="file" name="cover" style="display: none;" />
 					</form>
-					<form id="postPic-portrait" class="col-xs-6">
-						<label for="upload-portrait" class="btn btn-success btn-xs" style="width: 100%;">更改头像</label>
-						<input id="upload-portrait" type="file" name="portrait" style="display: none;" />
-						<!-- <button type="button" class="btn btn-xs btn-success" id="upload-portrait">上传头像</button> -->
+					<form id="postPicPortrait" class="col-xs-6">
+						<label for="uploadPortrait" class="btn btn-success btn-xs" style="width: 100%;">更改头像</label>
+						<input id="uploadPortrait" type="file" name="portrait" style="display: none;" />
 					</form>
 					<div class="filler" style="height: 10px;"></div>
 					<form id="userDetailForm">
@@ -185,7 +172,7 @@
 			}
 		});
 	});
-	$("#upload-cover").change(function(){
+	$("#uploadCover").change(function(){
 		$.ajax({
 			url: '/coverUpload',
 			type: 'POST',
@@ -204,12 +191,12 @@
 			} 
 		});
 	});
-	$("#upload-portrait").change(function(){
+	$("#uploadPortrait").change(function(){
 		$.ajax({
 			url: '/portraitUpload',
 			type: 'POST',
 			cache: false,
-			data: new FormData($('#postPic-portrait')[0]),
+			data: new FormData($('#postPicPortrait')[0]),
 			processData: false,
 			contentType: false,
 			success: function(data) {
